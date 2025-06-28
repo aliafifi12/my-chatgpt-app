@@ -62,7 +62,8 @@ export default function Home() {
         console.error("Could not parse user from local storage", e)
     }
     const isAdmin = user?.email === 'admin@example.com';
-    setIsProUser(isAdmin);
+    const isPro = localStorage.getItem('isProUser') === 'true';
+    setIsProUser(isAdmin || isPro);
   }, []);
 
   const onSubmit = async (data: ChatFormValues) => {
@@ -80,8 +81,8 @@ export default function Home() {
     setIsLoading(true);
     form.reset();
 
-    const newCount = messageCount + 1;
     if (!isProUser) {
+      const newCount = messageCount + 1;
       setMessageCount(newCount);
       localStorage.setItem('messageCount', newCount.toString());
     }

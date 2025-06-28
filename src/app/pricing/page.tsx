@@ -1,7 +1,11 @@
+'use client';
+
 import Link from 'next/link';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Check, CircleDollarSign, Rocket, Zap } from "lucide-react";
+import { useEffect, useState } from 'react';
+import { PaypalButton } from '@/components/paypal-button';
 
 const tiers = [
   {
@@ -30,7 +34,7 @@ const tiers = [
       'Email support',
     ],
     buttonText: 'Subscribe with PayPal',
-    href: 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=REPLACE_WITH_YOUR_PAYPAL_BUTTON_ID',
+    href: '#', // Placeholder, will be replaced by PayPal button
     highlighted: true,
     Icon: Rocket,
   },
@@ -52,6 +56,12 @@ const tiers = [
 ];
 
 export default function PricingPage() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem('isLoggedIn') === 'true');
+  }, []);
+
   return (
     <div className="py-12">
       <div className="container mx-auto px-4">
@@ -65,7 +75,7 @@ export default function PricingPage() {
         </div>
         <div className="grid max-w-md grid-cols-1 gap-8 mx-auto lg:max-w-none lg:grid-cols-3">
           {tiers.map((tier) => (
-            <Card key={tier.name} className={tier.highlighted ? 'border-primary ring-2 ring-primary' : ''}>
+            <Card key={tier.name} className={tier.highlighted ? 'border-primary ring-2 ring-primary flex flex-col' : 'flex flex-col'}>
               <CardHeader className="text-center">
                  <tier.Icon className="h-10 w-10 mx-auto mb-4 text-primary" />
                 <CardTitle className="text-2xl font-bold">{tier.name}</CardTitle>
@@ -75,7 +85,7 @@ export default function PricingPage() {
                 </div>
                 <CardDescription className="mt-2">{tier.description}</CardDescription>
               </CardHeader>
-              <CardContent>
+              <CardContent className="flex-grow">
                 <ul className="space-y-4">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-center">
@@ -86,9 +96,21 @@ export default function PricingPage() {
                 </ul>
               </CardContent>
               <CardFooter>
-                 <Button asChild className="w-full" variant={tier.highlighted ? 'default' : 'outline'}>
-                    <Link href={tier.href}>{tier.buttonText}</Link>
-                 </Button>
+                 {tier.name === 'Pro' ? (
+                  isLoggedIn ? (
+                    <div className="w-full">
+                      <PaypalButton />
+                    </div>
+                  ) : (
+                    <Button asChild className="w-full" variant="default">
+                      <Link href="/login?redirect=/pricing">Log In to Subscribe</Link>
+                    </Button>
+                  )
+                 ) : (
+                   <Button asChild className="w-full" variant={tier.highlighted ? 'default' : 'outline'}>
+                      <Link href={tier.href}>{tier.buttonText}</Link>
+                   </Button>
+                 )}
               </CardFooter>
             </Card>
           ))}

@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   Card,
   CardContent,
@@ -19,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Users, DollarSign, MessageSquare } from "lucide-react";
 import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/components/ui/chart"
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts"
+import { Skeleton } from '@/components/ui/skeleton';
 
 const chartData = [
   { month: "January", chats: 186 },
@@ -65,45 +68,77 @@ const users = [
 
 
 export default function AdminPage() {
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const isAdmin = localStorage.getItem('isAdmin') === 'true';
+    if (!isAdmin) {
+      router.push('/admin/login');
+    } else {
+      setIsAuthenticated(true);
+    }
+  }, [router]);
+
+  if (!isAuthenticated) {
+    return (
+        <div className="container mx-auto py-12">
+            <div className="max-w-7xl mx-auto space-y-8">
+                <Skeleton className="h-10 w-1/4" />
+                <Skeleton className="h-6 w-1/2" />
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                    <Skeleton className="h-32" />
+                    <Skeleton className="h-32" />
+                    <Skeleton className="h-32" />
+                </div>
+                <div className="grid gap-8 lg:grid-cols-2">
+                    <Skeleton className="h-80" />
+                    <Skeleton className="h-80" />
+                </div>
+            </div>
+        </div>
+    );
+  }
+
   return (
     <div className="container mx-auto py-12">
       <div className="max-w-7xl mx-auto space-y-8">
         <div>
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <h1 className="text-3xl font-bold">لوحة تحكم المسؤول</h1>
           <p className="text-muted-foreground">
-            Welcome back, Admin. Here's what's happening.
+            مرحبا بعودتك ايها المسؤول. إليك ما يحدث.
           </p>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Users</CardTitle>
+              <CardTitle className="text-sm font-medium">إجمالي المستخدمين</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">1,257</div>
-              <p className="text-xs text-muted-foreground">+20.1% from last month</p>
+              <p className="text-xs text-muted-foreground">+20.1% من الشهر الماضي</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Subscriptions</CardTitle>
+              <CardTitle className="text-sm font-medium">الاشتراكات</CardTitle>
               <DollarSign className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">+235</div>
-              <p className="text-xs text-muted-foreground">+180.1% from last month</p>
+              <p className="text-xs text-muted-foreground">+180.1% من الشهر الماضي</p>
             </CardContent>
           </Card>
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Chats</CardTitle>
+              <CardTitle className="text-sm font-medium">المحادثات النشطة</CardTitle>
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">+573</div>
-              <p className="text-xs text-muted-foreground">+19% from last month</p>
+              <p className="text-xs text-muted-foreground">+19% من الشهر الماضي</p>
             </CardContent>
           </Card>
         </div>
@@ -111,8 +146,8 @@ export default function AdminPage() {
         <div className="grid gap-8 lg:grid-cols-2">
            <Card>
             <CardHeader>
-              <CardTitle>Chat Volume</CardTitle>
-              <CardDescription>Monthly chat messages</CardDescription>
+              <CardTitle>حجم الدردشة</CardTitle>
+              <CardDescription>رسائل الدردشة الشهرية</CardDescription>
             </CardHeader>
             <CardContent>
               <ChartContainer config={chartConfig} className="h-[300px] w-full">
@@ -137,18 +172,18 @@ export default function AdminPage() {
           </Card>
           <Card>
             <CardHeader>
-              <CardTitle>Recent Signups</CardTitle>
+              <CardTitle>الاشتراكات الأخيرة</CardTitle>
               <CardDescription>
-                The latest users to join ChatFlow.
+                أحدث المستخدمين للانضمام إلى ChatFlow.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>User</TableHead>
-                    <TableHead>Plan</TableHead>
-                    <TableHead>Joined</TableHead>
+                    <TableHead>المستخدم</TableHead>
+                    <TableHead>الخطة</TableHead>
+                    <TableHead>تاريخ الانضمام</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>

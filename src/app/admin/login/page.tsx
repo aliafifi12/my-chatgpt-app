@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 
 export default function AdminLoginPage() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
   const { toast } = useToast();
@@ -18,14 +18,14 @@ export default function AdminLoginPage() {
     e.preventDefault();
     // In a real application, you'd want to use environment variables
     // and a more secure authentication method.
-    if (username === 'admin' && password === 'password') {
+    if (email === 'admin@example.com' && password === 'password') {
       localStorage.setItem('isAdmin', 'true');
       router.push('/admin');
     } else {
       toast({
         variant: 'destructive',
         title: 'خطأ في تسجيل الدخول',
-        description: 'اسم المستخدم أو كلمة المرور غير صحيحة.',
+        description: 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
       });
     }
   };
@@ -42,13 +42,13 @@ export default function AdminLoginPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="username">اسم المستخدم</Label>
+              <Label htmlFor="email">البريد الإلكتروني</Label>
               <Input
-                id="username"
-                type="text"
-                placeholder="admin"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                id="email"
+                type="email"
+                placeholder="admin@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
               />
             </div>

@@ -17,28 +17,38 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Dummy login logic
-    console.log('Logging in with:', email, password);
-    toast({
-      title: 'Login Successful',
-      description: 'Welcome back!',
-    });
-    router.push('/');
+    // In a real application, you'd want to use a more secure authentication method.
+    if (email === 'admin@example.com' && password === 'password') {
+      localStorage.setItem('isAdmin', 'true');
+      toast({
+        title: 'تم تسجيل دخول المسؤول بنجاح',
+        description: 'مرحباً بعودتك أيها المسؤول!',
+      });
+      router.push('/admin');
+    } else {
+      // Dummy login logic for regular users
+      console.log('Logging in with:', email, password);
+      toast({
+        title: 'تم تسجيل الدخول بنجاح',
+        description: 'مرحبا بعودتك!',
+      });
+      router.push('/');
+    }
   };
 
   return (
     <div className="flex items-center justify-center min-h-[calc(100vh-3.5rem)] bg-background">
       <Card className="w-full max-w-sm mx-auto">
         <CardHeader>
-          <CardTitle className="text-2xl text-center">Log In</CardTitle>
+          <CardTitle className="text-2xl text-center">تسجيل الدخول</CardTitle>
           <CardDescription className="text-center">
-            Enter your email below to login to your account
+            أدخل بريدك الإلكتروني أدناه لتسجيل الدخول إلى حسابك
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">البريد الإلكتروني</Label>
               <Input
                 id="email"
                 type="email"
@@ -49,7 +59,7 @@ export default function LoginPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">كلمة المرور</Label>
               <Input
                 id="password"
                 type="password"
@@ -59,13 +69,13 @@ export default function LoginPage() {
               />
             </div>
             <Button type="submit" className="w-full">
-              Log In
+              تسجيل الدخول
             </Button>
           </form>
            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{' '}
+              ليس لديك حساب؟{' '}
               <Link href="/signup" className="underline">
-                Sign up
+                إنشاء حساب
               </Link>
             </div>
         </CardContent>

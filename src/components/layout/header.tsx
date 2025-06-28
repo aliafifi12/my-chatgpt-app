@@ -13,6 +13,7 @@ export function Header() {
     { href: '/', label: 'Chat' },
     { href: '/pricing', label: 'Pricing' },
     { href: '/account', label: 'Account' },
+    { href: '/admin', label: 'Admin' },
   ];
 
   return (

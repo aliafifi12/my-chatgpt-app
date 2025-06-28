@@ -17,9 +17,10 @@ export default function LoginPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, you'd want to use a more secure authentication method.
     if (email === 'admin@example.com' && password === 'password') {
       localStorage.setItem('isAdmin', 'true');
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('user', JSON.stringify({ name: 'Admin', email: 'admin@example.com' }));
       toast({
         title: 'تم تسجيل دخول المسؤول بنجاح',
         description: 'مرحباً بعودتك أيها المسؤول!',
@@ -27,6 +28,8 @@ export default function LoginPage() {
       router.push('/admin');
     } else {
       // Dummy login logic for regular users
+      localStorage.setItem('isLoggedIn', 'true');
+      localStorage.setItem('user', JSON.stringify({ name: email.split('@')[0], email }));
       console.log('Logging in with:', email, password);
       toast({
         title: 'تم تسجيل الدخول بنجاح',

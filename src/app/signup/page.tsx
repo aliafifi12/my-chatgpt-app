@@ -10,6 +10,8 @@ import { useToast } from "@/hooks/use-toast";
 import Link from 'next/link';
 
 export default function SignupPage() {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const router = useRouter();
@@ -18,7 +20,10 @@ export default function SignupPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Dummy signup logic
+    const fullName = `${firstName} ${lastName}`.trim();
     console.log('Signing up with:', email, password);
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('user', JSON.stringify({ email, name: fullName || email.split('@')[0] }));
     toast({
       title: 'تم إنشاء الحساب',
       description: "لقد أنشأنا حسابك من أجلك.",
@@ -40,11 +45,11 @@ export default function SignupPage() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="first-name">الاسم الأول</Label>
-                <Input id="first-name" placeholder="علي" required />
+                <Input id="first-name" placeholder="علي" required value={firstName} onChange={e => setFirstName(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="last-name">اسم العائلة</Label>
-                <Input id="last-name" placeholder="محمد" required />
+                <Input id="last-name" placeholder="محمد" required value={lastName} onChange={e => setLastName(e.target.value)} />
               </div>
             </div>
             <div className="space-y-2">

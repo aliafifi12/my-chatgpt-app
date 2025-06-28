@@ -14,9 +14,11 @@ interface ChatInputProps {
   form: UseFormReturn<ChatFormValues>;
   onSubmit: (data: ChatFormValues) => void;
   isLoading: boolean;
+  isProUser: boolean;
+  remainingMessages: number;
 }
 
-export function ChatInput({ form, onSubmit, isLoading }: ChatInputProps) {
+export function ChatInput({ form, onSubmit, isLoading, isProUser, remainingMessages }: ChatInputProps) {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && !event.shiftKey) {
       event.preventDefault();
@@ -66,6 +68,11 @@ export function ChatInput({ form, onSubmit, isLoading }: ChatInputProps) {
           </Button>
         </form>
       </Form>
+       { !isProUser && remainingMessages >= 0 && (
+          <p className="text-center text-xs text-muted-foreground mt-2">
+              {`لديك ${remainingMessages} رسائل مجانية متبقية.`}
+          </p>
+      )}
     </div>
   );
 }

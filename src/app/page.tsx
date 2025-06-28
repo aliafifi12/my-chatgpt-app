@@ -20,6 +20,7 @@ export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
+  const [isProUser, setIsProUser] = useState(false);
   const { toast } = useToast();
   const chatHistoryRef = useRef<HTMLDivElement>(null);
 
@@ -53,9 +54,7 @@ export default function Home() {
     } else {
         localStorage.setItem('messageCount', '0');
     }
-  }, []);
 
-  const onSubmit = async (data: ChatFormValues) => {
     let user = null;
     try {
         user = JSON.parse(localStorage.getItem('user') || 'null');
@@ -63,8 +62,11 @@ export default function Home() {
         console.error("Could not parse user from local storage", e)
     }
     const isAdmin = user?.email === 'admin@example.com';
-    
-    if (!isAdmin && messageCount >= 3) {
+    setIsProUser(isAdmin);
+  }, []);
+
+  const onSubmit = async (data: ChatFormValues) => {
+    if (!isProUser && messageCount >= 3) {
       const limitMessage: Message = {
         role: 'model',
         content: 'لقد وصلت إلى حد الرسائل المجانية. [الرجاء الاشتراك](/pricing) للاستمرار في الدردشة.',
@@ -79,7 +81,7 @@ export default function Home() {
     form.reset();
 
     const newCount = messageCount + 1;
-    if (!isAdmin) {
+    if (!isProUser) {
       setMessageCount(newCount);
       localStorage.setItem('messageCount', newCount.toString());
     }
@@ -99,17 +101,25 @@ export default function Home() {
       // remove the user message if the call fails
       setMessages(prev => prev.slice(0, -1));
       // revert message count
-      if (!isAdmin) {
+      if (!isProUser) {
         setMessageCount(messageCount);
         localStorage.setItem('messageCount', messageCount.toString());
       }
     }
   };
 
+  const remainingMessages = 3 - messageCount;
+
   return (
     <div className="container mx-auto h-[calc(100vh-3.5rem)] flex flex-col">
        <ChatHistory messages={messages} ref={chatHistoryRef} />
-       <ChatInput form={form} onSubmit={onSubmit} isLoading={isLoading} />
+       <ChatInput 
+        form={form} 
+        onSubmit={onSubmit} 
+        isLoading={isLoading} 
+        isProUser={isProUser}
+        remainingMessages={remainingMessages}
+      />
     </div>
   );
 }

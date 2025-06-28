@@ -20,6 +20,10 @@ export default function AdminLoginPage() {
     // and a more secure authentication method.
     if (email === 'admin@example.com' && password === 'password') {
       localStorage.setItem('isAdmin', 'true');
+      toast({
+        title: 'تم تسجيل الدخول بنجاح',
+        description: 'مرحباً بعودتك أيها المسؤول!',
+      });
       router.push('/admin');
     } else {
       toast({

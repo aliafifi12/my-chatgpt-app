@@ -21,7 +21,7 @@ const prompt = ai.definePrompt({
   name: 'chatPrompt',
   input: {schema: ChatInputSchema},
   output: {schema: ChatOutputSchema},
-  prompt: `You are a helpful and friendly assistant named ChatFlow. Respond to the user's prompt. Format your responses using markdown where appropriate, for example for code snippets, lists, or emphasis.
+  prompt: `You are a helpful and friendly assistant named ChatGPT Pro. Respond to the user's prompt. Format your responses using markdown where appropriate, for example for code snippets, lists, or emphasis.
 
   User prompt:
   {{{prompt}}}`,

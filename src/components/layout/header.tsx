@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link';
-import { BotMessageSquare, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { usePathname, useRouter } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -18,6 +18,27 @@ import {
   Avatar,
   AvatarFallback,
 } from "@/components/ui/avatar"
+
+function Logo() {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="h-6 w-6 text-primary"
+        >
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            <path d="m10 8-2 2 2 2"></path>
+            <path d="m14 8 2 2-2 2"></path>
+        </svg>
+    )
+}
 
 export function Header() {
   const pathname = usePathname();
@@ -62,8 +83,8 @@ export function Header() {
       <div className="container flex h-14 items-center">
         <div className="mr-4 hidden md:flex">
           <Link href="/" className="mr-6 flex items-center space-x-2">
-            <BotMessageSquare className="h-6 w-6 text-primary" />
-            <span className="font-bold">ChatFlow</span>
+            <Logo />
+            <span className="font-bold">ChatGPT Pro</span>
           </Link>
           <nav className="flex items-center space-x-6 text-sm font-medium">
             {navLinks.map((link) => {

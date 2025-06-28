@@ -44,7 +44,7 @@ export default function Home() {
   useEffect(() => {
     const welcomeMessage: Message = {
       role: 'model',
-      content: "Welcome to ChatFlow! I'm your intelligent assistant. How can I help you today?",
+      content: "Welcome to ChatGPT Pro! I'm your intelligent assistant. How can I help you today?",
     };
     setMessages([welcomeMessage]);
 

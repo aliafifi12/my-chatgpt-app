@@ -74,7 +74,7 @@ export default function AdminPage() {
   useEffect(() => {
     const isAdmin = localStorage.getItem('isAdmin') === 'true';
     if (!isAdmin) {
-      router.push('/login');
+      router.push('/admin/login');
     } else {
       setIsAuthenticated(true);
     }
@@ -174,7 +174,7 @@ export default function AdminPage() {
             <CardHeader>
               <CardTitle>الاشتراكات الأخيرة</CardTitle>
               <CardDescription>
-                أحدث المستخدمين للانضمام إلى ChatFlow.
+                أحدث المستخدمين للانضمام إلى ChatGPT Pro.
               </CardDescription>
             </CardHeader>
             <CardContent>

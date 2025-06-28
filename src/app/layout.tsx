@@ -5,7 +5,7 @@ import { Header } from '@/components/layout/header';
 import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
-  title: 'ChatFlow',
+  title: 'ChatGPT Pro',
   description: 'Your intelligent chat assistant',
 };
 

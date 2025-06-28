@@ -10,12 +10,12 @@ const tiers = [
     period: '/ month',
     description: 'Get started with our basic features.',
     features: [
-      '10 messages per day',
+      '3 messages total',
       'Standard model access',
       'Community support',
     ],
     buttonText: 'Start for Free',
-    href: '#',
+    href: '/signup',
     Icon: Zap,
   },
   {
@@ -30,7 +30,7 @@ const tiers = [
       'Email support',
     ],
     buttonText: 'Subscribe with PayPal',
-    href: 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=YOUR_PRO_BUTTON_ID',
+    href: 'https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=REPLACE_WITH_YOUR_PAYPAL_BUTTON_ID',
     highlighted: true,
     Icon: Rocket,
   },

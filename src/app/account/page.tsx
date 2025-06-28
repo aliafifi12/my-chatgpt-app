@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 export default function AccountPage() {
   return (
@@ -28,7 +29,9 @@ export default function AccountPage() {
             </div>
              <div className="flex justify-between items-center">
                 <p className="text-muted-foreground">Your plan renews on July 30, 2024.</p>
-                <Button variant="outline">Manage on PayPal</Button>
+                <Button variant="outline" asChild>
+                  <Link href="https://www.paypal.com/myaccount/autopay/" target="_blank" rel="noopener noreferrer">Manage on PayPal</Link>
+                </Button>
              </div>
           </CardContent>
           <Separator />

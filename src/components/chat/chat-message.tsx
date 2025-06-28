@@ -30,7 +30,7 @@ export function ChatMessage({ message }: { message: Message }) {
             remarkPlugins={[remarkGfm]}
             components={{
               p: ({ node, ...props }) => <p className="mb-2 last:mb-0" {...props} />,
-              a: ({node, ...props}) => <a className="text-accent-foreground underline" {...props} />,
+              a: ({node, ...props}) => <a className={isUser ? "underline" : "text-primary underline"} {...props} />,
             }}
           >
             {message.content}

@@ -19,6 +19,7 @@ type ChatFormValues = z.infer<typeof chatSchema>;
 export default function Home() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [messageCount, setMessageCount] = useState(0);
   const { toast } = useToast();
   const chatHistoryRef = useRef<HTMLDivElement>(null);
 
@@ -38,22 +39,50 @@ export default function Home() {
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
-  
-  const welcomeMessage: Message = {
-    role: 'model',
-    content: "Welcome to ChatFlow! I'm your intelligent assistant. How can I help you today?",
-  };
 
   useEffect(() => {
+    const welcomeMessage: Message = {
+      role: 'model',
+      content: "Welcome to ChatFlow! I'm your intelligent assistant. How can I help you today?",
+    };
     setMessages([welcomeMessage]);
+
+    const storedCount = localStorage.getItem('messageCount');
+    if (storedCount) {
+      setMessageCount(parseInt(storedCount, 10));
+    } else {
+        localStorage.setItem('messageCount', '0');
+    }
   }, []);
 
-
   const onSubmit = async (data: ChatFormValues) => {
+    let user = null;
+    try {
+        user = JSON.parse(localStorage.getItem('user') || 'null');
+    } catch(e) {
+        console.error("Could not parse user from local storage", e)
+    }
+    const isAdmin = user?.email === 'admin@example.com';
+    
+    if (!isAdmin && messageCount >= 3) {
+      const limitMessage: Message = {
+        role: 'model',
+        content: 'لقد وصلت إلى حد الرسائل المجانية. [الرجاء الاشتراك](/pricing) للاستمرار في الدردشة.',
+      };
+      setMessages(prev => [...prev, limitMessage]);
+      return;
+    }
+
     const userMessage: Message = { role: 'user', content: data.prompt };
     setMessages(prev => [...prev, userMessage]);
     setIsLoading(true);
     form.reset();
+
+    const newCount = messageCount + 1;
+    if (!isAdmin) {
+      setMessageCount(newCount);
+      localStorage.setItem('messageCount', newCount.toString());
+    }
 
     const result = await handleChat({ prompt: data.prompt });
     setIsLoading(false);
@@ -69,6 +98,11 @@ export default function Home() {
       });
       // remove the user message if the call fails
       setMessages(prev => prev.slice(0, -1));
+      // revert message count
+      if (!isAdmin) {
+        setMessageCount(messageCount);
+        localStorage.setItem('messageCount', messageCount.toString());
+      }
     }
   };
 

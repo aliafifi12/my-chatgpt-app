@@ -24,6 +24,7 @@ export default function SignupPage() {
     console.log('Signing up with:', email, password);
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('user', JSON.stringify({ email, name: fullName || email.split('@')[0] }));
+    localStorage.setItem('messageCount', '0');
     toast({
       title: 'تم إنشاء الحساب',
       description: "لقد أنشأنا حسابك من أجلك.",

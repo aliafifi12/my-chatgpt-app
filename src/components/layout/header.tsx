@@ -43,9 +43,13 @@ export function Header() {
           <div className="w-full flex-1 md:w-auto md:flex-none">
             {/* You can add a command menu here if needed */}
           </div>
-          <nav className="flex items-center">
-            <Button variant="ghost">Log In</Button>
-            <Button>Sign Up</Button>
+          <nav className="flex items-center space-x-2">
+            <Button variant="ghost" asChild>
+              <Link href="/login">Log In</Link>
+            </Button>
+            <Button asChild>
+              <Link href="/signup">Sign Up</Link>
+            </Button>
           </nav>
         </div>
       </div>

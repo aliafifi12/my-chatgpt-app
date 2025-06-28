@@ -8,34 +8,49 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import Link from 'next/link';
+import { handleLogin } from '@/app/actions';
+import { LoaderCircle } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const { toast } = useToast();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (email === 'admin@example.com' && password === 'password') {
-      localStorage.setItem('isAdmin', 'true');
+    setIsLoading(true);
+
+    const result = await handleLogin({ email, password });
+    setIsLoading(false);
+
+    if (result.success) {
+      const { isAdmin, user } = result;
+
       localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('user', JSON.stringify({ name: 'Admin', email: 'admin@example.com' }));
-      toast({
-        title: 'تم تسجيل دخول المسؤول بنجاح',
-        description: 'مرحباً بعودتك أيها المسؤول!',
-      });
-      router.push('/admin');
+      localStorage.setItem('user', JSON.stringify(user));
+      
+      if (isAdmin) {
+        localStorage.setItem('isAdmin', 'true');
+        toast({
+          title: 'تم تسجيل دخول المسؤول بنجاح',
+          description: 'مرحباً بعودتك أيها المسؤول!',
+        });
+        router.push('/admin');
+      } else {
+        toast({
+          title: 'تم تسجيل الدخول بنجاح',
+          description: 'مرحبا بعودتك!',
+        });
+        router.push('/');
+      }
     } else {
-      // Dummy login logic for regular users
-      localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('user', JSON.stringify({ name: email.split('@')[0], email }));
-      console.log('Logging in with:', email, password);
       toast({
-        title: 'تم تسجيل الدخول بنجاح',
-        description: 'مرحبا بعودتك!',
+        variant: 'destructive',
+        title: 'خطأ في تسجيل الدخول',
+        description: result.error || 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
       });
-      router.push('/');
     }
   };
 
@@ -59,6 +74,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                disabled={isLoading}
               />
             </div>
             <div className="space-y-2">
@@ -69,10 +85,11 @@ export default function LoginPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                disabled={isLoading}
               />
             </div>
-            <Button type="submit" className="w-full">
-              تسجيل الدخول
+            <Button type="submit" className="w-full" disabled={isLoading}>
+              {isLoading ? <LoaderCircle className="animate-spin" /> : 'تسجيل الدخول'}
             </Button>
           </form>
            <div className="mt-4 text-center text-sm">

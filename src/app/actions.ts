@@ -41,3 +41,27 @@ export async function getSuggestions(input: { useCase: string }) {
     return { success: false, error: 'Failed to get suggestions.' };
   }
 }
+
+const loginSchema = z.object({
+  email: z.string().email(),
+  password: z.string(),
+});
+
+export async function handleLogin(input: z.infer<typeof loginSchema>) {
+    const validatedInput = loginSchema.safeParse(input);
+    if (!validatedInput.success) {
+        return { success: false, error: 'Invalid input.' };
+    }
+
+    const { email, password } = validatedInput.data;
+
+    const adminEmail = process.env.ADMIN_EMAIL;
+    const adminPassword = process.env.ADMIN_PASSWORD;
+
+    if (email === adminEmail && password === adminPassword) {
+        return { success: true, isAdmin: true, user: { name: 'Admin', email: adminEmail } };
+    }
+
+    // Dummy logic for regular users. In a real app, you'd check a database.
+    return { success: true, isAdmin: false, user: { name: email.split('@')[0], email } };
+}

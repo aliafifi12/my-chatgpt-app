@@ -21,7 +21,6 @@ export default function SignupPage() {
     e.preventDefault();
     // Dummy signup logic
     const fullName = `${firstName} ${lastName}`.trim();
-    console.log('Signing up with:', email, password);
     localStorage.setItem('isLoggedIn', 'true');
     localStorage.setItem('user', JSON.stringify({ email, name: fullName || email.split('@')[0] }));
     localStorage.setItem('messageCount', '0');

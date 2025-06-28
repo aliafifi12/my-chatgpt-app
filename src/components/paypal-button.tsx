@@ -4,8 +4,8 @@ import { useToast } from '@/hooks/use-toast';
 import { useRouter } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 
-const PAYPAL_CLIENT_ID = 'AbrfBkVVaS7RSjpX9CD1Hu0ZlzYWPwlb-xUCL4GeuNABIvjKvtS7rEcpstbK1xDCkaMY3OPEslpWdX-a';
-const PAYPAL_PLAN_ID = 'P-17R37846XU6478726NBQHR3I';
+const PAYPAL_CLIENT_ID = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+const PAYPAL_PLAN_ID = process.env.NEXT_PUBLIC_PAYPAL_PLAN_ID;
 
 declare global {
   interface Window {
@@ -20,6 +20,11 @@ export function PaypalButton() {
   const router = useRouter();
 
   useEffect(() => {
+    if (!PAYPAL_CLIENT_ID) {
+      console.error('PayPal Client ID is not set in environment variables.');
+      return;
+    }
+
     if (window.paypal) {
       setSdkReady(true);
       return;
@@ -42,6 +47,10 @@ export function PaypalButton() {
 
   useEffect(() => {
     if (sdkReady && paypalRef.current && paypalRef.current.innerHTML === '') {
+      if (!PAYPAL_PLAN_ID) {
+        console.error('PayPal Plan ID is not set in environment variables.');
+        return;
+      }
       try {
         window.paypal.Buttons({
           style: {
@@ -84,6 +93,10 @@ export function PaypalButton() {
       }
     }
   }, [sdkReady, router, toast]);
+
+  if (!PAYPAL_CLIENT_ID || !PAYPAL_PLAN_ID) {
+    return <div className="text-center p-4 text-destructive font-semibold">PayPal integration is not configured.</div>;
+  }
 
   if (!sdkReady) {
     return <div className="text-center p-4">Loading PayPal Button...</div>;

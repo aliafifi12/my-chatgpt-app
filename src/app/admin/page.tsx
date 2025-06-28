@@ -42,7 +42,7 @@ export default function AdminPage() {
   useEffect(() => {
     const isAdmin = localStorage.getItem('isAdmin') === 'true';
     if (!isAdmin) {
-      router.push('/admin/login');
+      router.push('/login');
     } else {
       setIsAuthenticated(true);
     }

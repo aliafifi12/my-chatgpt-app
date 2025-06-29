@@ -86,7 +86,7 @@ Vercel is from the creators of Next.js and offers a fantastic free tier.
     - `NEXT_PUBLIC_PAYPAL_PLAN_ID` (If using PayPal)
 7.  Click the **"Deploy"** button.
 
-That's it! Vercel will build and deploy your site, giving you a live URL.
+That's it! Vercel will start building and deploying your site. This process can take a few minutes. You can watch the progress on your Vercel dashboard. Once it's finished, you'll get a live URL to your new ChatGPT Pro application. If you push new changes to your GitHub repository in the future, Vercel will automatically redeploy the site with the updates.
 
 ### Option 2: Firebase App Hosting (Requires Billing Account)
 

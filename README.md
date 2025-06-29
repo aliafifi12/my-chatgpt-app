@@ -88,6 +88,19 @@ Vercel is from the creators of Next.js and offers a fantastic free tier.
 
 That's it! Vercel will start building and deploying your site. This process can take a few minutes. You can watch the progress on your Vercel dashboard. Once it's finished, you'll get a live URL to your new ChatGPT Pro application. If you push new changes to your GitHub repository in the future, Vercel will automatically redeploy the site with the updates.
 
+**Troubleshooting Vercel Deployments**
+
+If your deployment fails on Vercel, don't worry. Here's what to do:
+1.  **Check the Logs:** On your Vercel project dashboard, go to the "Deployments" tab and click on the failed deployment. You'll see logs that can help identify the issue.
+2.  **Communicate with the AI:** If you're working with an AI assistant like Firebase Studio's App Prototyper, paste the error logs into the chat. The AI can analyze them and provide a fix.
+3.  **Push the Fix:** Once the AI provides a code change, you'll need to push it to GitHub. Open your terminal in the project folder and run:
+    ```bash
+    git add .
+    git commit -m "Applying AI fix for deployment"
+    git push
+    ```
+4.  **Automatic Redeploy:** Vercel will automatically detect the `push` and start a new deployment with the fix.
+
 ### Option 2: Firebase App Hosting (Requires Billing Account)
 
 This project is also configured for Firebase App Hosting. Note that this method **requires you to enable billing** on your Firebase project (although it has a free tier for usage).

@@ -28,6 +28,9 @@ Follow these instructions to get the project up and running on your local machin
 3.  **Set up environment variables:**
     Create a `.env` file in the root of your project and add your API keys. You can use the `.env.example` file as a template if one exists.
     ```
+    # Google AI API Key (Required for AI features)
+    GOOGLE_API_KEY=YOUR_GEMINI_API_KEY
+
     # PayPal configuration (Optional)
     NEXT_PUBLIC_PAYPAL_CLIENT_ID=YOUR_PAYPAL_CLIENT_ID
     NEXT_PUBLIC_PAYPAL_PLAN_ID=YOUR_PAYPAL_PLAN_ID
@@ -36,6 +39,14 @@ Follow these instructions to get the project up and running on your local machin
     ADMIN_EMAIL=admin@example.com
     ADMIN_PASSWORD=password
     ```
+
+#### Getting a Google AI API Key
+The AI features of this application are powered by Google's Gemini models. You will need a free API key to enable them.
+1.  Go to [Google AI Studio](https://aistudio.google.com/app/apikey).
+2.  Sign in with your Google account.
+3.  Click **"Create API key in new project"**.
+4.  Copy the generated API key.
+5.  Paste this key into your `.env` file as the value for `GOOGLE_API_KEY`.
 
 ### Running the Development Server
 
@@ -66,8 +77,13 @@ Vercel is from the creators of Next.js and offers a fantastic free tier.
 2.  On your Vercel dashboard, click **"Add New... > Project"**.
 3.  Find your GitHub repository in the list and click **"Import"**.
 4.  Vercel will automatically detect that it's a Next.js project. You don't need to change any build settings.
-5.  Before deploying, expand the **"Environment Variables"** section.
-6.  Copy the variables from your local `.env` file (like `ADMIN_EMAIL` and `ADMIN_PASSWORD`) and add them to Vercel.
+5.  Before deploying, expand the **"Environment Variables"** section. This is a critical step.
+6.  You must add all the variables from your `.env` file here.
+    - `GOOGLE_API_KEY` (Required)
+    - `ADMIN_EMAIL`
+    - `ADMIN_PASSWORD`
+    - `NEXT_PUBLIC_PAYPAL_CLIENT_ID` (If using PayPal)
+    - `NEXT_PUBLIC_PAYPAL_PLAN_ID` (If using PayPal)
 7.  Click the **"Deploy"** button.
 
 That's it! Vercel will build and deploy your site, giving you a live URL.

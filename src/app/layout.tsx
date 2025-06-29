@@ -4,6 +4,12 @@ import { cn } from "@/lib/utils";
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { Toaster } from "@/components/ui/toaster";
+import { Cairo } from 'next/font/google';
+
+const cairo = Cairo({
+  subsets: ['arabic'],
+  variable: '--font-cairo',
+});
 
 export const metadata: Metadata = {
   title: 'ChatGPT Pro',
@@ -16,12 +22,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;700&display=swap" rel="stylesheet"></link>
-      </head>
+    <html lang="ar" dir="rtl" className={cn(cairo.variable)} suppressHydrationWarning>
       <body className={cn("min-h-screen bg-background font-body antialiased")}>
         <div className="relative flex min-h-screen flex-col">
           <Header />

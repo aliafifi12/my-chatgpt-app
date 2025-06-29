@@ -30,11 +30,11 @@ export default function AccountPage() {
   }, []);
 
   const handleCancel = () => {
-    if (window.confirm("Are you sure you want to cancel your subscription? You will lose Pro features. This action cannot be undone from the app.")) {
+    if (window.confirm("هل أنت متأكد من رغبتك في إلغاء اشتراكك؟ ستفقد ميزات Pro. لا يمكن التراجع عن هذا الإجراء من التطبيق.")) {
       localStorage.removeItem('isProUser');
       toast({
-        title: 'Subscription Cancelled',
-        description: 'Your Pro plan has been cancelled. Please also cancel the subscription in your PayPal account.'
+        title: 'تم إلغاء الاشتراك',
+        description: 'تم إلغاء خطة Pro الخاصة بك. يرجى أيضًا إلغاء الاشتراك في حساب PayPal الخاص بك.'
       });
       setIsPro(false);
       window.location.href = '/pricing';
@@ -44,10 +44,10 @@ export default function AccountPage() {
   if (!isLoggedIn) {
      return (
       <div className="container mx-auto py-12 text-center">
-        <h1 className="text-3xl font-bold mb-4">Please Log In</h1>
-        <p className="text-muted-foreground mb-8">You need to be logged in to view your account details.</p>
+        <h1 className="text-3xl font-bold mb-4">يرجى تسجيل الدخول</h1>
+        <p className="text-muted-foreground mb-8">يجب أن تكون مسجلاً للدخول لعرض تفاصيل حسابك.</p>
         <Button asChild>
-          <Link href="/login">Log In</Link>
+          <Link href="/login">تسجيل الدخول</Link>
         </Button>
       </div>
     );
@@ -56,10 +56,10 @@ export default function AccountPage() {
   if (!isPro) {
     return (
       <div className="container mx-auto py-12 text-center">
-        <h1 className="text-3xl font-bold mb-4">Upgrade to Pro</h1>
-        <p className="text-muted-foreground mb-8">You are currently on the Free plan. Upgrade to access Pro features.</p>
+        <h1 className="text-3xl font-bold mb-4">الترقية إلى Pro</h1>
+        <p className="text-muted-foreground mb-8">أنت حاليًا على الخطة المجانية. قم بالترقية للوصول إلى ميزات Pro.</p>
         <Button asChild>
-          <Link href="/pricing">View Pricing</Link>
+          <Link href="/pricing">عرض الأسعار</Link>
         </Button>
       </div>
     )
@@ -68,47 +68,47 @@ export default function AccountPage() {
   return (
     <div className="container mx-auto py-12">
       <div className="max-w-2xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">Account Management</h1>
+        <h1 className="text-3xl font-bold mb-2">إدارة الحساب</h1>
         <p className="text-muted-foreground mb-8">
-          View and manage your subscription details.
+          عرض وإدارة تفاصيل اشتراكك.
         </p>
         
         <Card>
           <CardHeader>
-            <CardTitle>My Subscription</CardTitle>
+            <CardTitle>اشتراكي</CardTitle>
             <CardDescription>
-              Manage your current plan and billing details.
+              إدارة خطتك الحالية وتفاصيل الفوترة.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex justify-between items-center p-4 border rounded-lg">
                 <div>
-                    <h3 className="font-semibold">Current Plan</h3>
-                    <p className="text-muted-foreground text-2xl font-bold text-primary">Pro Plan</p>
+                    <h3 className="font-semibold">الخطة الحالية</h3>
+                    <p className="text-muted-foreground text-2xl font-bold text-primary">خطة Pro</p>
                 </div>
-                <p className="text-muted-foreground">$10 / month</p>
+                <p className="text-muted-foreground">$10 / شهرياً</p>
             </div>
              <div className="flex justify-between items-center">
-                <p className="text-muted-foreground">Manage your billing on PayPal.</p>
+                <p className="text-muted-foreground">إدارة الفوترة الخاصة بك على PayPal.</p>
                 <Button variant="outline" asChild>
-                  <Link href="https://www.paypal.com/myaccount/autopay/" target="_blank" rel="noopener noreferrer">Manage on PayPal</Link>
+                  <Link href="https://www.paypal.com/myaccount/autopay/" target="_blank" rel="noopener noreferrer">الإدارة على PayPal</Link>
                 </Button>
              </div>
           </CardContent>
           <Separator />
           <CardHeader>
-              <CardTitle>Danger Zone</CardTitle>
+              <CardTitle>منطقة الخطر</CardTitle>
               <CardDescription>
-                Cancelling your subscription here will immediately remove Pro access from this app. You must also cancel on PayPal to stop payments.
+                سيؤدي إلغاء اشتراكك هنا إلى إزالة وصول Pro من هذا التطبيق على الفور. يجب عليك أيضًا الإلغاء على PayPal لإيقاف المدفوعات.
               </CardDescription>
           </CardHeader>
           <CardContent>
              <div className="flex justify-between items-center p-4 border border-destructive/50 rounded-lg bg-destructive/5">
                 <div>
-                    <h3 className="font-semibold text-destructive">Cancel Subscription</h3>
-                    <p className="text-muted-foreground text-sm">Your access to Pro features will be removed immediately.</p>
+                    <h3 className="font-semibold text-destructive">إلغاء الاشتراك</h3>
+                    <p className="text-muted-foreground text-sm">ستتم إزالة وصولك إلى ميزات Pro على الفور.</p>
                 </div>
-                 <Button variant="destructive" onClick={handleCancel}>Cancel Subscription</Button>
+                 <Button variant="destructive" onClick={handleCancel}>إلغاء الاشتراك</Button>
              </div>
           </CardContent>
         </Card>

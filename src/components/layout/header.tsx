@@ -73,9 +73,9 @@ export function Header() {
   };
 
   const navLinks = [
-    { href: '/', label: 'Chat' },
-    { href: '/pricing', label: 'Pricing' },
-    { href: '/account', label: 'Account' },
+    { href: '/', label: 'الدردشة' },
+    { href: '/pricing', label: 'الأسعار' },
+    { href: '/account', label: 'الحساب' },
   ];
 
   return (
@@ -138,10 +138,10 @@ export function Header() {
             ) : (
               <>
                 <Button variant="ghost" asChild>
-                  <Link href="/login">Log In</Link>
+                  <Link href="/login">تسجيل الدخول</Link>
                 </Button>
                 <Button asChild>
-                  <Link href="/signup">Sign Up</Link>
+                  <Link href="/signup">إنشاء حساب</Link>
                 </Button>
               </>
             )}

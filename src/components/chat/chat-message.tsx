@@ -25,7 +25,7 @@ export function ChatMessage({ message }: { message: Message }) {
             : 'bg-card'
         )}
       >
-        <article className="prose prose-sm dark:prose-invert max-w-none">
+        <article className="prose prose-sm dark:prose-invert max-w-none text-right">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             components={{

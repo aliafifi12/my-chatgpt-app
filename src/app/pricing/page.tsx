@@ -9,47 +9,47 @@ import { PaypalButton } from '@/components/paypal-button';
 
 const tiers = [
   {
-    name: 'Free',
+    name: 'مجاني',
     price: '$0',
-    period: '/ month',
-    description: 'Get started with our basic features.',
+    period: '/ شهرياً',
+    description: 'ابدأ مع ميزاتنا الأساسية.',
     features: [
-      '3 messages total',
-      'Standard model access',
-      'Community support',
+      '3 رسائل إجمالاً',
+      'وصول للنموذج القياسي',
+      'دعم المجتمع',
     ],
-    buttonText: 'Start for Free',
+    buttonText: 'ابدأ مجاناً',
     href: '/signup',
     Icon: Zap,
   },
   {
     name: 'Pro',
     price: '$10',
-    period: '/ month',
-    description: 'Unlock advanced features and higher limits.',
+    period: '/ شهرياً',
+    description: 'افتح الميزات المتقدمة والحدود الأعلى.',
     features: [
-      'Unlimited messages',
-      'Priority access to new models',
-      'Faster response times',
-      'Email support',
+      'رسائل غير محدودة',
+      'أولوية الوصول للنماذج الجديدة',
+      'أوقات استجابة أسرع',
+      'دعم عبر البريد الإلكتروني',
     ],
-    buttonText: 'Subscribe with PayPal',
+    buttonText: 'اشترك مع باي بال',
     href: '#', // Placeholder, will be replaced by PayPal button
     highlighted: true,
     Icon: Rocket,
   },
   {
     name: 'Enterprise',
-    price: 'Custom',
+    price: 'مخصص',
     period: '',
-    description: 'For businesses that need advanced control and support.',
+    description: 'للشركات التي تحتاج إلى تحكم ودعم متقدم.',
     features: [
-      'All Pro features',
-      'Dedicated infrastructure',
-      'Volume discounts',
-      '24/7 priority support',
+      'جميع ميزات Pro',
+      'بنية تحتية مخصصة',
+      'خصومات على الحجم',
+      'دعم بأولوية 24/7',
     ],
-    buttonText: 'Contact Sales',
+    buttonText: 'تواصل مع المبيعات',
     href: '#',
     Icon: CircleDollarSign,
   },
@@ -67,10 +67,10 @@ export default function PricingPage() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl">
-            Flexible pricing for your needs
+            أسعار مرنة لاحتياجاتك
           </h1>
           <p className="mt-3 text-xl text-muted-foreground sm:mt-5">
-            Choose the plan that's right for you.
+            اختر الخطة المناسبة لك.
           </p>
         </div>
         <div className="grid max-w-md grid-cols-1 gap-8 mx-auto lg:max-w-none lg:grid-cols-3">
@@ -89,7 +89,7 @@ export default function PricingPage() {
                 <ul className="space-y-4">
                   {tier.features.map((feature) => (
                     <li key={feature} className="flex items-center">
-                      <Check className="h-5 w-5 text-accent mr-2 shrink-0" />
+                      <Check className="h-5 w-5 text-accent ml-2 shrink-0" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -103,7 +103,7 @@ export default function PricingPage() {
                     </div>
                   ) : (
                     <Button asChild className="w-full" variant="default">
-                      <Link href="/login?redirect=/pricing">Log In to Subscribe</Link>
+                      <Link href="/login?redirect=/pricing">تسجيل الدخول للاشتراك</Link>
                     </Button>
                   )
                  ) : (

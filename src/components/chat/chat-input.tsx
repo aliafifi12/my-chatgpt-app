@@ -43,8 +43,8 @@ export function ChatInput({ form, onSubmit, isLoading, isProUser, remainingMessa
                 <FormControl>
                   <Textarea
                     {...field}
-                    placeholder="Type your message here..."
-                    className="pr-16 resize-none"
+                    placeholder="اكتب رسالتك هنا..."
+                    className="pl-16 resize-none"
                     rows={1}
                     onKeyDown={handleKeyDown}
                     disabled={isLoading}
@@ -56,9 +56,9 @@ export function ChatInput({ form, onSubmit, isLoading, isProUser, remainingMessa
           <Button
             type="submit"
             size="icon"
-            className="absolute right-2 top-1/2 -translate-y-1/2"
+            className="absolute left-2 top-1/2 -translate-y-1/2"
             disabled={isLoading}
-            aria-label="Send message"
+            aria-label="إرسال رسالة"
           >
             {isLoading ? (
               <LoaderCircle className="h-4 w-4 animate-spin" />

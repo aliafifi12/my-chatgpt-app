@@ -66,8 +66,8 @@ export function PaypalButton() {
           },
           onApprove: function (data: any, actions: any) {
             toast({
-              title: 'Subscription Successful!',
-              description: 'Welcome to ChatGPT Pro. You now have unlimited access.',
+              title: 'اكتمل الاشتراك بنجاح!',
+              description: 'مرحباً بك في ChatGPT Pro. لديك الآن وصول غير محدود.',
             });
 
             try {
@@ -83,8 +83,8 @@ export function PaypalButton() {
             console.error('PayPal button error:', err);
             toast({
               variant: 'destructive',
-              title: 'An error occurred',
-              description: 'Something went wrong with the PayPal transaction. Please try again.',
+              title: 'حدث خطأ',
+              description: 'حدث خطأ ما في معاملة PayPal. يرجى المحاولة مرة أخرى.',
             });
           },
         }).render(paypalRef.current);
@@ -95,11 +95,11 @@ export function PaypalButton() {
   }, [sdkReady, router, toast]);
 
   if (!PAYPAL_CLIENT_ID || !PAYPAL_PLAN_ID) {
-    return <div className="text-center p-4 text-destructive font-semibold">PayPal integration is not configured.</div>;
+    return <div className="text-center p-4 text-destructive font-semibold">تكامل PayPal غير مهيأ.</div>;
   }
 
   if (!sdkReady) {
-    return <div className="text-center p-4">Loading PayPal Button...</div>;
+    return <div className="text-center p-4">جاري تحميل زر PayPal...</div>;
   }
 
   return <div id={`paypal-button-container-${PAYPAL_PLAN_ID}`} ref={paypalRef} className="w-full"></div>;

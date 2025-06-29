@@ -12,7 +12,7 @@ import { ChatHistory } from '@/components/chat/chat-history';
 import { ChatInput } from '@/components/chat/chat-input';
 
 const chatSchema = z.object({
-  prompt: z.string().min(1, 'Prompt cannot be empty.'),
+  prompt: z.string().min(1, 'لا يمكن أن يكون الطلب فارغًا.'),
 });
 type ChatFormValues = z.infer<typeof chatSchema>;
 
@@ -44,7 +44,7 @@ export default function Home() {
   useEffect(() => {
     const welcomeMessage: Message = {
       role: 'model',
-      content: "Welcome to ChatGPT Pro! I'm your intelligent assistant. How can I help you today?",
+      content: "مرحباً بك في ChatGPT Pro! أنا مساعدك الذكي. كيف يمكنني مساعدتك اليوم؟",
     };
     setMessages([welcomeMessage]);
 
@@ -96,8 +96,8 @@ export default function Home() {
     } else {
       toast({
         variant: 'destructive',
-        title: 'Error',
-        description: result.error || 'An unexpected error occurred.',
+        title: 'خطأ',
+        description: result.error || 'حدث خطأ غير متوقع.',
       });
       // remove the user message if the call fails
       setMessages(prev => prev.slice(0, -1));

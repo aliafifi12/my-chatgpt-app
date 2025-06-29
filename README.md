@@ -86,20 +86,30 @@ Vercel is from the creators of Next.js and offers a fantastic free tier.
     - `NEXT_PUBLIC_PAYPAL_PLAN_ID` (If using PayPal)
 7.  Click the **"Deploy"** button.
 
-That's it! Vercel will start building and deploying your site. This process can take a few minutes. You can watch the progress on your Vercel dashboard. Once it's finished, you'll get a live URL to your new ChatGPT Pro application. If you push new changes to your GitHub repository in the future, Vercel will automatically redeploy the site with the updates.
+That's it! Vercel will start building and deploying your site. This process can take a few minutes. You can watch the progress on your Vercel dashboard. Once it's finished, you'll get a live URL to your new ChatGPT Pro application.
 
-**Troubleshooting Vercel Deployments**
+### How to Apply Fixes from the AI Assistant
 
-If your deployment fails on Vercel, don't worry. Here's what to do:
-1.  **Check the Logs:** On your Vercel project dashboard, go to the "Deployments" tab and click on the failed deployment. You'll see logs that can help identify the issue.
-2.  **Communicate with the AI:** If you're working with an AI assistant like Firebase Studio's App Prototyper, paste the error logs into the chat. The AI can analyze them and provide a fix.
-3.  **Push the Fix:** Once the AI provides a code change, you'll need to push it to GitHub. Open your terminal in the project folder and run:
+If the AI assistant provides a code change to fix an issue (like a deployment failure), you need to "push" that change to GitHub. Vercel will then automatically deploy the fix.
+
+Open the **Terminal** in your project folder and run these three commands, one after the other:
+
+1.  **Stage the changes:**
     ```bash
     git add .
+    ```
+
+2.  **Commit the changes** (this saves them with a message):
+    ```bash
     git commit -m "Applying AI fix for deployment"
+    ```
+
+3.  **Push the changes** to GitHub:
+    ```bash
     git push
     ```
-4.  **Automatic Redeploy:** Vercel will automatically detect the `push` and start a new deployment with the fix.
+
+That's it! Vercel will detect the `push` and start a new deployment. You can watch the progress on your Vercel dashboard. If the build fails again, copy the new error logs from Vercel and paste them back to the AI.
 
 ### Option 2: Firebase App Hosting (Requires Billing Account)
 
